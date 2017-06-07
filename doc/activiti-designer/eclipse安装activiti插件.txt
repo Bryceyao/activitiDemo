@@ -1,5 +1,5 @@
 =========正常步骤 link方式安装==========
-1 解压activiti-designer-5.18.0.zip 
+1 解压activiti-designer-5.18.0.zip （官方下载 http://www.activiti.org/designer/archived/activiti-designer-5.18.0.zip）
 
 2 将features，plugins文件夹放到D:/tools/eclipse/linkPlugins/activiti-designer-5.18.0/eclipse目录下
 
@@ -30,3 +30,9 @@ Cannot complete the install because one or more required items could not be foun
 2.1 解压 d018071d-64a2-354a-bca2-f8d3cef590f4.zip，将以上jar包拷贝到eclipse安装目录下的plugins包中
 
 3 重新eclipse快捷方式以管理员身份运行（install new soft安装能排查出问题，最终推荐以link方式安装）
+
+参考资料
+http://iamyida.iteye.com/blog/2195309
+http://blog.csdn.net/javahighness/article/details/47753293
+http://www.oschina.net/news/65068/activit-designer-5-18-0
+http://lafecat.iteye.com/blog/2209785
