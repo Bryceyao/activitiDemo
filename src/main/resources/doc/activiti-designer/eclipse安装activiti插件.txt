@@ -1,0 +1,32 @@
+=========正常步骤 link方式安装==========
+1 解压activiti-designer-5.18.0.zip 
+
+2 将features，plugins文件夹放到D:/tools/eclipse/linkPlugins/activiti-designer-5.18.0/eclipse目录下
+
+3 D:\tools\eclipse\links目录下新建activiti.link文件，输入“path=D:/tools/eclipse/linkPlugins/activiti-designer-5.18.0”，保存
+
+4 eclipse 快捷方式属性 D:\tools\eclipse\eclipse.exe改为 D:\tools\eclipse\eclipse.exe -clean
+
+5 eclipse快捷方式以管理员身份运行。
+
+6 改回步骤4所做的修改
+
+如果不成功，可尝试
+7.1 删除D:\tools\eclipse\configuration下 org.eclipse.update文件夹（删前备份）
+7.2 修改 D:\tools\eclipse\configuration\config.ini内容org.eclipse.update.reconcile=true（成功之后改回）
+
+=========异常排查==========
+1 如果之前有在线安装，进入help->install new soft->available software sites->单独选中 activiti designer -> remove;
+
+2 在help->install new soft页面->add->archive->选择activiti-designer-5.18.0.zip->OK->选中activiti BPMN Designer及子选项->Next
+
+如果顺利安装，则成功；如果提示异常：
+Cannot complete the install because one or more required items could not be found.
+  Software being installed: Activiti Eclipse BPMN 2.0 Designer 5.18.0.201508100929 (org.activiti.designer.feature.feature.group 5.18.0.201508100929)
+  Missing requirement: Activiti Eclipse BPMN 2.0 Designer 5.18.0.201508100929 (org.activiti.designer.feature.feature.group 5.18.0.201508100929) requires 'org.eclipse.emf.transaction 1.4.0' but it could not be found
+由于安装的eclipse版本过高，在线安装插件的时候报错
+是eclipse安装目录中的plugins文件夹中缺少插件包导致，分别为org.eclipse.emf.transaction_1.4.0.v20100331-1738.jar、org.eclipse.emf.validation_1.4.0.v20100428-2315.jar、org.eclipse.emf.workspace_1.5.1.v20120328-0001.jar； 
+
+2.1 解压 d018071d-64a2-354a-bca2-f8d3cef590f4.zip，将以上jar包拷贝到eclipse安装目录下的plugins包中
+
+3 重新eclipse快捷方式以管理员身份运行（install new soft安装能排查出问题，最终推荐以link方式安装）
