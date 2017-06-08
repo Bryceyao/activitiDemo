@@ -18,6 +18,7 @@
 *.tar.gz
 *.rar
 
+.bpmn
 .classpath
 .project
 .settings/
