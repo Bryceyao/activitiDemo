@@ -1,6 +1,8 @@
 # activitiDemo
 工作流引擎之activiti
 
+[Activiti 5.16 用户手册](http://itmyhome.com/activiti/)
+
 * spring boot整合activiti只需两步
 
 >1.添加boot的activiti模块
