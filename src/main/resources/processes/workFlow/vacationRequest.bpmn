@@ -32,7 +32,7 @@
     </sequenceFlow>
     <userTask id="adjustVacationRequestTask" name="Adjust vacation request" activiti:assignee="${employeeName}">
       <documentation>Your manager has disapproved your vacation request for ${numberOfDays} days.
-        Reason: ${managerMotivation}</documentation>
+        Reason: ${managerMotivation},请假中文</documentation>
       <extensionElements>
         <activiti:formProperty id="numberOfDays" name="Number of days" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="startDate" name="First day of holiday (dd-MM-yyy)" type="date" datePattern="dd-MM-yyyy hh:mm" required="true"></activiti:formProperty>

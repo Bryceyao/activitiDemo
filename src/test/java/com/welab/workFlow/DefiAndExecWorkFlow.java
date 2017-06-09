@@ -1,4 +1,4 @@
-package com.welab;
+package com.welab.workFlow;
 
 import java.beans.IntrospectionException;
 import java.lang.reflect.InvocationTargetException;
@@ -6,10 +6,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.activiti.engine.FormService;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
+import org.activiti.engine.form.FormProperty;
+import org.activiti.engine.form.TaskFormData;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.junit.Test;
@@ -24,13 +28,13 @@ import com.welab.common.util.BeanUtil;
 
 
 /**
- * 流程完整实现
+ * 流程部署，启动，执行，待办
  * 
  * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 9, 2017.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class VacationRequest {
+public class DefiAndExecWorkFlow {
     @Autowired
     RuntimeService runtimeService;
     @Autowired
@@ -39,15 +43,17 @@ public class VacationRequest {
     TaskService taskService;
     @Autowired
     ProcessEngine processEngine;
+    @Autowired
+    FormService formService;
 
     @Test
     public void contextLoads() throws Exception {
-        createDeployment();//1发布流程
+//        createDeployment();//1发布流程
         startProcessInstanceByKey();//2发起一个流程实例
-        createTaskQueryManagement();//3 Management查询待办任务
-        completeTaskManagement();//4 Management处理某个任务
-        createTaskQueryKermit();// 5 Kermit 查询待办任务
-        completeTaskKermit(); //6 Kermit处理任务
+//        createTaskQueryManagement();//3 Management查询待办任务
+//        completeTaskManagement();//4 Management处理某个任务
+//        createTaskQueryKermit();// 5 Kermit 查询待办任务
+//        completeTaskKermit(); //6 Kermit处理任务
     }
     
     /**
@@ -58,6 +64,7 @@ public class VacationRequest {
      */
     public void completeTaskKermit(){
         List<Task> tasks = taskService.createTaskQuery().taskCandidateOrAssigned("Kermit").list();
+        
         for (Task task : tasks) {
             System.out.println("Task available:===== " + task.getId()+","+task.getName()+","+task.getDescription());
             Map<String, Object> taskVariables = new HashMap<String, Object>();
@@ -66,6 +73,7 @@ public class VacationRequest {
             taskService.complete(task.getId(), taskVariables);
         }
     }
+   
     
     /**
      * 2 Kermit发起一个流程实例
@@ -97,10 +105,16 @@ public class VacationRequest {
      * @throws IllegalAccessException 
      */
    
-    public void  createTaskQueryManagement() throws Exception{
+    public void  createTaskQueryKermit() throws Exception{
         List<Task> tasks = taskService.createTaskQuery().taskCandidateOrAssigned("Kermit").list();
         for (Task task : tasks) {
             System.out.println("Task available:===== " + task.getId()+","+task.getName()+","+task.getDescription()+","+task.getOwner());
+            
+            TaskFormData  taskFormdata = formService.getTaskFormData(task.getId());
+            List<FormProperty> formPropertys = taskFormdata.getFormProperties();
+            for (FormProperty formProperty : formPropertys) {
+                System.out.println("formProperty=========="+JSON.toJSONString(formProperty));
+            }
         }
     }
     
@@ -114,7 +128,7 @@ public class VacationRequest {
      * @throws IllegalAccessException 
      */
    
-    public void  createTaskQueryKermit() throws Exception{
+    public void  createTaskQueryManagement() throws Exception{
         //management为handleRequest节点配置的“activiti:candidateGroups”
         List<Task> tasks = taskService.createTaskQuery().taskCandidateGroup("management").list();
         for (Task task : tasks) {
@@ -148,7 +162,7 @@ public class VacationRequest {
     public void createDeployment(){
         RepositoryService repositoryService = processEngine.getRepositoryService();
         repositoryService.createDeployment()
-          .addClasspathResource("processes/vacationRequest.bpmn")
+          .addClasspathResource("processes/workFlow/SubProcessTwoMethod.bpmn")
           .deploy();
 
         System.out.println("Number of process definitions==========" + repositoryService.createProcessDefinitionQuery().count());

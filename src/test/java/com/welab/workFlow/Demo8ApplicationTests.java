@@ -1,4 +1,4 @@
-package com.welab;
+package com.welab.workFlow;
 
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class Demo8ApplicationTests {
      * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 8, 2017.
      */
     public void deployFlow() {
-        Deployment deployment = repositoryService.createDeployment().addClasspathResource("processes/his/MyProcess1.bpmn").deploy();
+        Deployment deployment = repositoryService.createDeployment().addClasspathResource("processes/workFlow/MyProcess1.bpmn").deploy();
         System.out.println("deploymentId========" + JSONObject.toJSONString(deployment));
     }
 

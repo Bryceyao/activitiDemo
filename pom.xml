@@ -24,6 +24,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 		<activiti.version>5.19.0.2</activiti.version>
+		<mybatis-spring-boot>1.2.0</mybatis-spring-boot>
 	</properties>
 
 	<dependencies>
@@ -39,7 +40,12 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
+		<!-- Spring Boot Mybatis 依赖 -->
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis-spring-boot}</version>
+        </dependency>
 		<!-- Spring Boot Hibernate 依赖 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
