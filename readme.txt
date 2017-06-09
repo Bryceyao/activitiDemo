@@ -1,0 +1,2 @@
+1.打开管理页面需要用户名密码配置在表ACT_ID_USER下
+2.执行Application main方法启动项目，会自动加载/processes/下的.bpmn文件进行部署
