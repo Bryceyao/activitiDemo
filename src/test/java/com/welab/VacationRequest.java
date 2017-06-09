@@ -22,6 +22,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.welab.common.util.BeanUtil;
 
+
+/**
+ * 流程完整实现
+ * 
+ * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 9, 2017.
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class VacationRequest {
@@ -36,67 +42,33 @@ public class VacationRequest {
 
     @Test
     public void contextLoads() throws Exception {
-        createTaskQuery();
+        createDeployment();//1发布流程
+        startProcessInstanceByKey();//2发起一个流程实例
+        createTaskQueryManagement();//3 Management查询待办任务
+        completeTaskManagement();//4 Management处理某个任务
+        createTaskQueryKermit();// 5 Kermit 查询待办任务
+        completeTaskKermit(); //6 Kermit处理任务
     }
     
     /**
-     * 查询待办任务
+     * 6 Kermit 处理任务.
      *
      *
      * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 8, 2017.
-     * @throws IntrospectionException 
-     * @throws InvocationTargetException 
-     * @throws IllegalAccessException 
      */
-   
-    public void  createTaskQuery() throws Exception{
-        //management为handleRequest节点配置的“activiti:candidateGroups”
-//        List<Task> tasks = taskService.createTaskQuery().taskCandidateGroup("management").list();
-        
+    public void completeTaskKermit(){
         List<Task> tasks = taskService.createTaskQuery().taskCandidateOrAssigned("Kermit").list();
-        
-        for (Task task : tasks) {
-            System.out.println("Task available:===== " + task.getId()+","+task.getName()+","+task.getDescription()+","+task.getOwner());
-        }
-    }
-    
-    
-    /**
-     * 处理某个任务.
-     *
-     *
-     * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 8, 2017.
-     */
-    public void completeTask(){
-        List<Task> tasks = taskService.createTaskQuery().taskCandidateGroup("management").list();
         for (Task task : tasks) {
             System.out.println("Task available:===== " + task.getId()+","+task.getName()+","+task.getDescription());
-            if("17507".endsWith(task.getId())){
-                Map<String, Object> taskVariables = new HashMap<String, Object>();
-                taskVariables.put("vacationApproved", "false");
-                taskVariables.put("managerMotivation", "We have a tight deadline!");
-                taskService.complete(task.getId(), taskVariables);
-            }
+            Map<String, Object> taskVariables = new HashMap<String, Object>();
+            taskVariables.put("vacationApproved", "false");
+            taskVariables.put("managerMotivation", "We have a tight deadline!");
+            taskService.complete(task.getId(), taskVariables);
         }
     }
     
     /**
-     * 发布流程.
-     *
-     *
-     * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 8, 2017.
-     */
-    public void createDeployment(){
-        RepositoryService repositoryService = processEngine.getRepositoryService();
-        repositoryService.createDeployment()
-          .addClasspathResource("processes/vacationRequest.bpmn")
-          .deploy();
-
-        System.out.println("Number of process definitions==========" + repositoryService.createProcessDefinitionQuery().count());
-    }
-    
-    /**
-     * 发起一个流程实例
+     * 2 Kermit发起一个流程实例
      *
      *
      * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 8, 2017.
@@ -114,6 +86,75 @@ public class VacationRequest {
         // Verify that we started a new process instance
         System.out.println("Number of process instances: " + runtimeService.createProcessInstanceQuery().count());
     }
+    
+    /**
+     * 5 Kermit 查询待办任务
+     *
+     *
+     * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 8, 2017.
+     * @throws IntrospectionException 
+     * @throws InvocationTargetException 
+     * @throws IllegalAccessException 
+     */
+   
+    public void  createTaskQueryManagement() throws Exception{
+        List<Task> tasks = taskService.createTaskQuery().taskCandidateOrAssigned("Kermit").list();
+        for (Task task : tasks) {
+            System.out.println("Task available:===== " + task.getId()+","+task.getName()+","+task.getDescription()+","+task.getOwner());
+        }
+    }
+    
+    /**
+     * 3 management 查询待办任务
+     *
+     *
+     * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 8, 2017.
+     * @throws IntrospectionException 
+     * @throws InvocationTargetException 
+     * @throws IllegalAccessException 
+     */
+   
+    public void  createTaskQueryKermit() throws Exception{
+        //management为handleRequest节点配置的“activiti:candidateGroups”
+        List<Task> tasks = taskService.createTaskQuery().taskCandidateGroup("management").list();
+        for (Task task : tasks) {
+            System.out.println("Task available:===== " + task.getId()+","+task.getName()+","+task.getDescription()+","+task.getOwner());
+        }
+    }
+    
+    /**
+     * 4 management处理任务.
+     *
+     *
+     * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 8, 2017.
+     */
+    public void completeTaskManagement(){
+        List<Task> tasks = taskService.createTaskQuery().taskCandidateGroup("management").list();
+        for (Task task : tasks) {
+            System.out.println("Task available:===== " + task.getId()+","+task.getName()+","+task.getDescription());
+            Map<String, Object> taskVariables = new HashMap<String, Object>();
+            taskVariables.put("vacationApproved", "false");
+            taskVariables.put("managerMotivation", "We have a tight deadline!");
+            taskService.complete(task.getId(), taskVariables);
+        }
+    }
+    
+    /**
+     * 1发布流程.
+     *
+     *
+     * Created by Bryce Yao<sysyaoyulong@gmail.com> on Jun 8, 2017.
+     */
+    public void createDeployment(){
+        RepositoryService repositoryService = processEngine.getRepositoryService();
+        repositoryService.createDeployment()
+          .addClasspathResource("processes/vacationRequest.bpmn")
+          .deploy();
+
+        System.out.println("Number of process definitions==========" + repositoryService.createProcessDefinitionQuery().count());
+    }
+    
+    
     
    
     
