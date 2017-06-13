@@ -31,6 +31,9 @@ Cannot complete the install because one or more required items could not be foun
 
 3 重新eclipse快捷方式以管理员身份运行（install new soft安装能排查出问题，最终推荐以link方式安装）
 
+=========推荐==========
+使用activiti.link方式加载activiti-designer插件，通过移动activiti.link文件，灵活插拔该插件
+
 参考资料
 http://iamyida.iteye.com/blog/2195309
 http://blog.csdn.net/javahighness/article/details/47753293
