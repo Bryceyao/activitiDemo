@@ -1,9 +1,11 @@
 # activitiDemo
 工作流引擎之activiti
 
->[Activiti 5.16 用户手册](http://itmyhome.com/activiti/)
->[Getting started with Activiti and Spring Boot(]https://spring.io/blog/2015/03/08/getting-started-with-activiti-and-spring-boot)
->[Activiti User Guide](https://www.activiti.org/userguide/index.html)
+*[Activiti 5.16 用户手册](http://itmyhome.com/activiti/)
+
+*[Getting started with Activiti and Spring Boot](https://spring.io/blog/2015/03/08/getting-started-with-activiti-and-spring-boot)
+
+*[Activiti User Guide](https://www.activiti.org/userguide/index.html)
 
 
 * spring boot整合activiti只需两步
