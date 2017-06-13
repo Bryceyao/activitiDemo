@@ -5,9 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.activiti.engine.FormService;
-import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
@@ -21,10 +19,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.welab.common.util.BeanUtil;
 
 
 /**
@@ -48,8 +43,8 @@ public class DefiAndExecWorkFlow {
 
     @Test
     public void contextLoads() throws Exception {
-//        createDeployment();//1发布流程
-        startProcessInstanceByKey();//2发起一个流程实例
+        createDeployment();//1发布流程
+//        startProcessInstanceByKey();//2发起一个流程实例
 //        createTaskQueryManagement();//3 Management查询待办任务
 //        completeTaskManagement();//4 Management处理某个任务
 //        createTaskQueryKermit();// 5 Kermit 查询待办任务

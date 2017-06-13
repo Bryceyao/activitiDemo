@@ -6,18 +6,18 @@
         <activiti:formProperty id="findId" name="findId" type="long"></activiti:formProperty>
         <activiti:formProperty id="updateId" name="updateId" type="long" required="true"></activiti:formProperty>
         <activiti:formProperty id="provinceId" name="provinceId" type="long"></activiti:formProperty>
-        <activiti:formProperty id="city_name" name="city_name" type="string"></activiti:formProperty>
+        <activiti:formProperty id="cityName" name="cityName" type="string"></activiti:formProperty>
         <activiti:formProperty id="description" name="description" type="string"></activiti:formProperty>
       </extensionElements>
     </startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <serviceTask id="servicetask2" name="程序判断是否执行成功" activiti:class="com.welab.service.impl.WResultService">
+    <serviceTask id="servicetask2" name="程序判断是否执行成功" activiti:expression="${resultService.judge(execution)}">
       <documentation>查询城市信息为 ${findCity}，修改id为的城市信息结果 ${updateResult}</documentation>
     </serviceTask>
     <sequenceFlow id="flow3" sourceRef="servicetask2" targetRef="endevent1"></sequenceFlow>
-    <serviceTask id="servicetask1" name="根据ID查询某个城市" activiti:class="com.welab.service.impl.WCityServiceFind"></serviceTask>
+    <serviceTask id="servicetask1" name="根据ID查询某个城市" activiti:expression="${cityServiceFindByExpression.find(execution,findId)}"></serviceTask>
     <sequenceFlow id="flow6" sourceRef="servicetask1" targetRef="servicetask3"></sequenceFlow>
-    <serviceTask id="servicetask3" name="修改城市信息" activiti:class="com.welab.service.impl.WCityServiceUpdate"></serviceTask>
+    <serviceTask id="servicetask3" name="修改城市信息" activiti:expression="${cityServiceUpdate.update(execution,updateId,provinceId,cityName,description)}"></serviceTask>
     <sequenceFlow id="flow7" sourceRef="startevent1" targetRef="servicetask1"></sequenceFlow>
     <sequenceFlow id="flow8" sourceRef="servicetask3" targetRef="servicetask2"></sequenceFlow>
   </process>
