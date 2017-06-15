@@ -11,6 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.welab.model.City;
 import com.welab.service.CityService;
 
+/**
+ * 业务数据测试.
+ * 
+ * Created by Bryce Yao<sysyaoyulong@gmail.com> on 2017-06-15.
+ */
 @RestController
 @RequestMapping("/city")
 public class CityRestController {
