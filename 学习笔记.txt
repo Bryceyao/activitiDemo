@@ -42,7 +42,7 @@ A.测试步骤
 B.注意事项
 	1.流程中的变量类型只支持小写，如long，string；错误形式 Long，String
 	2.流程中的变量须同名，如在开始节点定义“cityName1”，在后面执行节点，定义表达式中引用“cityName1”。
-	3.流程中的本来和程序中的变量不需要同名，不需要同数据类型
+	3.流程中的变量和程序中的变量不需要同名，不需要同数据类型
 		如流程表达式 ${cityServiceFindByExpression.find(execution,findId)}
 		程序代码
 			@Component
