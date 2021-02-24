@@ -24,11 +24,11 @@
 
 >>注：spring boot容器启动的时候会去这个文件夹下找xxx.bpmn20.xml和xx.bpmn的文件并装载自动发布，如下图类可说明
 
->>![image](https://raw.githubusercontent.com/Bryceyao/bryceFile/master/work/image/activitiDemo/20160819143438_74009.png)
+>>![image](https://raw.githubusercontent.com/Bryceyao/activitiDemo/master/doc/img/20160819143438_74009.png)
 
 >>如果你想自定义，也很简单，也上图所示，只需在application.properties中加上spring.activiti.xxx=xxx等配置就好,如下图
 
->>![image](https://raw.githubusercontent.com/Bryceyao/bryceFile/master/work/image/activitiDemo/20160819144400_28352.png)
+>>![image](https://raw.githubusercontent.com/Bryceyao/activitiDemo/master/doc/img/20160819144400_28352.png)
 
 >>至此，你的spring上下文就装载了如processEngineConfiguration，processEngine，repositoryService，runtimeService，taskService，identityService等常用的操作对象实例了
 
@@ -72,7 +72,7 @@
 		
 >2.相关接口信息可从spring 的RequestMappingHandlerMapping : Mapped日志得知，如
 
->>![image](https://raw.githubusercontent.com/Bryceyao/bryceFile/master/work/image/activitiDemo/20160819143013_47940.png)
+>>![image](https://raw.githubusercontent.com/Bryceyao/activitiDemo/master/doc/img/20160819143013_47940.png)
 
 >>使用 http://localhost:8080/mappings 就可以查看所有的restful接口信息了
 
