@@ -18,6 +18,7 @@
 *.tar.gz
 *.rar
 
+.DS_Store
 .bpmn
 .classpath
 .project
